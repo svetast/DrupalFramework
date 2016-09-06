@@ -35,6 +35,5 @@ public class BasePage {
         submit.click ();
 
     }
-
 }
 
