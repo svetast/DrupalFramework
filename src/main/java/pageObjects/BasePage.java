@@ -4,10 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static org.testng.AssertJUnit.assertEquals;
+
 public class BasePage {
 
 
-    final WebDriver driver;
+    WebDriver driver;
     @FindBy (id = "page-title")
     private WebElement pageTitle;
     @FindBy (id = "edit-pass")
@@ -33,6 +35,18 @@ public class BasePage {
         password.sendKeys (passwordKey);
 
         submit.click ();
+
+    }
+
+
+    public void checkPassResult() {
+        assertEquals ("Drupal - Open Source CMS | Drupal.org", driver.getTitle ());
+
+    }
+
+    public void checkFailResult() {
+        assertEquals ("Log in | Drupal.org", driver.getTitle ());
+
 
     }
 }

@@ -10,11 +10,9 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
-
-public class Tests_LogIn {
-
-    private final static String URL = "https://www.drupal.org/user/login?destination=home";
+public class TestLogIn {
+    private final static String URL =
+            "https://www.drupal.org/user/login?destination=home";
 
 
     static WebDriver driver;
@@ -25,6 +23,7 @@ public class Tests_LogIn {
     @BeforeMethod
 
     public void beforeMethod() {
+
 
         driver = new FirefoxDriver ();
         driver.manage ().timeouts ().implicitlyWait (20, TimeUnit.SECONDS);
@@ -41,27 +40,27 @@ public class Tests_LogIn {
     @Test
     public void inputSuccess() {
         BasePage.loginAction ("oa.org.ua", "12345Q");
-        assertEquals ("Drupal - Open Source CMS | Drupal.org", driver.getTitle ());
+        BasePage.checkPassResult ();
+
     }
 
     @Test
     public void inputEmptyPassword() throws Exception {
         BasePage.loginAction ("oa.org.ua", "");
-        assertEquals ("Log in | Drupal.org", driver.getTitle ());
+        BasePage.checkFailResult ();
 
     }
 
     @Test
     public void inputEmptyLogin() throws Exception {
         BasePage.loginAction ("", "12345Q");
-        assertEquals ("Log in | Drupal.org", driver.getTitle ());
-
+        BasePage.checkFailResult ();
     }
 
     @Test
     public void inputEmptyLoginPassword() throws Exception {
         BasePage.loginAction ("", "");
-        assertEquals ("Log in | Drupal.org", driver.getTitle ());
+        BasePage.checkFailResult ();
 
 
     }
@@ -69,7 +68,7 @@ public class Tests_LogIn {
     @Test
     public void inputUnSuccess() throws Exception {
         BasePage.loginAction ("rama", "12345");
-        assertEquals ("Log in | Drupal.org", driver.getTitle ());
+        BasePage.checkFailResult ();
 
 
     }
@@ -78,7 +77,6 @@ public class Tests_LogIn {
     @AfterMethod
 
     public void afterMethod() {
-
         driver.quit ();
 
     }
